@@ -13,7 +13,10 @@
 #include <unistd.h>
 #include <ctype.h>
 
-struct	reservation
+typedef char TypeName[20];
+typedef char TypeRef[8];
+
+typedef struct reservation
 {
 	int number;
 	int entry_day;
@@ -23,21 +26,23 @@ struct	reservation
 	int exit_day;
 	int exit_month;
 	int exit_year;
-	char ref[8];
+	TypeRef ref;
 	char apartment_type;
 };
 
-struct building
+typedef reservation TypeReserv[366]; //vector de reservas con un máximo de 366 por si hubiese una reserva por dia en cada año
+
+typedef struct building
 {
 	int id;
-	char name[20];
+	TypeName name;
 	int basic;
 	int normal;
 	int luxury;
 	int basic_available;
 	int normal_available;
 	int luxury_available;
-	reservation reservations[366];
+	TypeReserv reservations;
 };
 
 
@@ -62,3 +67,6 @@ int	month_days(int month, int year);
 void print_date_format(int month);
 void print_reservation_number(reservation res[], int i);
 void assign_reserv_ref(building buildings[], int id, char apartment_type, int res_i);
+
+
+void debug_reservations(building buildings[], int id);

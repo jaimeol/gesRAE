@@ -8,10 +8,11 @@
 
 #include "gesRAE.hpp"
 
-void init_reservations(reservation reservations[])
+static void init_reservations(reservation reservations[])
 {
 	int i = 0;
-	while (i < 365)
+	char action;
+	while (i < 366)
 	{
 		reservations[i].number = 0;
 		reservations[i].entry_day = 0;
@@ -21,15 +22,19 @@ void init_reservations(reservation reservations[])
 		reservations[i].exit_day = 0;
 		reservations[i].exit_month = 0;
 		reservations[i].exit_year = 0;
+		reservations[i].apartment_type = '\0';
+		if (i == 5)
+			reservations[i].apartment_type = 'B';
 		i++;
 	}
 }
 
 void init_data(building buildings[])
 {
-	char names[5][10] = {"Apolo", "Atenea", "Zeus", "Efesto", "Hermes"};
+	typedef char name[5][10];
+	name names = {"Apolo", "Atenea", "Zeus", "Efesto", "Hermes"};
 	int i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		buildings[i].id = i + 1;
 		buildings[i].basic = 10;
