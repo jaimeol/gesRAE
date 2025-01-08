@@ -6,7 +6,7 @@
  * EMAIL: #jolivares142@alumno.uned.es#
  ***************************************/
 
-#include "gesRAE.hpp"
+#include "gesRAE.h"
 
 bool leap_year(int year)
 {

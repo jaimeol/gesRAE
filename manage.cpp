@@ -6,7 +6,7 @@
  * EMAIL: #jolivares142@alumno.uned.es#
  ***************************************/
 
-#include "gesRAE.hpp"
+#include "gesRAE.h"
 
 static void check_actions(char action, building buildings[])
 {
@@ -17,7 +17,7 @@ static void check_actions(char action, building buildings[])
 	else if (action == 'A')
 		display_available(buildings);
 	else if (action == 'R')
-		direct_reservation(buildings);
+		do_reservation(buildings);
 	else if (action == 'S')
 		exit (0);
 }
