@@ -6,9 +6,9 @@
  * EMAIL: #jolivares142@alumno.uned.es#
  ***************************************/
 
-#include "gesRAE.hpp"
+#include "gesRAE.h"
 
-void print_name_spaces(building buildings[], int i)
+void print_name_spaces(TypeBuilding buildings, int i)
 {
 	int space_num = 16 - strlen(buildings[i].name);
 	int j = 0;
@@ -22,11 +22,15 @@ void print_name_spaces(building buildings[], int i)
 void print_basic_spaces(int num)
 {
 	int space_num;
-	int i = 0; 
+	int i = 0;
 	if (num > 10)
+	{
 		space_num = 15;
+	}
 	else
+	{
 		space_num = 16;
+	}
 	while (i < space_num)
 	{
 		printf(" ");
@@ -39,9 +43,13 @@ void print_normal_spaces(int num)
 	int space_num;
 	int i = 0;
 	if (num > 10)
+	{
 		space_num = 16;
+	}
 	else
+	{
 		space_num = 17;
+	}
 	while (i < space_num)
 	{
 		printf(" ");
@@ -49,17 +57,21 @@ void print_normal_spaces(int num)
 	}
 }
 
-void print_reservation_number(reservation res[], int i)
+void print_reservation_number(TypeReserv res, int i)
 {
 	if (res[i].number < 10)
+	{
 		printf("  Numero de reserva: 0%d/%d\n", res[i].number, res[i].entry_year);
+	}
 	else
+	{
 		printf("  Numero de reserva: %d/%d\n", res[i].number, res[i].entry_year);
+	}
 }
 
-void assign_reserv_ref(building buildings[], int id, char apartment_type, int res_i)
+void assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type, int res_i)
 {
-	char aux_ref[8];
+	TypeRef aux_ref;
 
 	aux_ref[0] = 'A';
 	aux_ref[1] = 'P';
@@ -89,4 +101,34 @@ void assign_reserv_ref(building buildings[], int id, char apartment_type, int re
 		buildings[id - 1].luxury_available--;
 	}
 	strcpy(buildings[id - 1].reservations[res_i].ref, aux_ref);
+}
+
+void print_reservations(TypeBuilding buildings, int id)
+{
+  int i = 0;
+  while (i < 366)
+	{
+	  if (buildings[id].reservations[i].apartment_type != '\0')
+	  {
+      printf("%c\n", buildings[id].reservations[i].apartment_type);
+      while (1){}
+    }
+    i++;
+	}
+}
+
+void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i)
+{
+   if (type == 'B')
+  {
+    buildings[id].reservations[res_i].apartment_type = 0;
+  }
+  else if (type == 'N')
+  {
+    buildings[id].reservations[res_i].apartment_type = 1;
+  }
+  else if (type == 'L')
+  {
+    buildings[id].reservations[res_i].apartment_type = 2;
+  }
 }

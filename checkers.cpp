@@ -7,9 +7,11 @@
  ***************************************/
 
 
-#include "gesRAE.hpp"
+#include "gesRAE.h"
 
-int	check_name_len(char str[])
+typedef char TypeString[];
+
+int	check_name_len(TypeString str)
 {
 	if (strlen(str) > 20)
 	{
@@ -26,7 +28,7 @@ int	check_name_len(char str[])
 	return (0);
 }
 
-int	check_total_apartments(building buildings[], int id)
+int	check_total_apartments(TypeBuilding buildings, int id)
 {
 	int total_apartments = buildings[id].basic + buildings[id].normal + buildings[id].luxury;
 	if (total_apartments > 20)
@@ -53,6 +55,17 @@ int	check_correct_id(int id)
 		system("clear");
 		printf("\033[31mError\033[0m:: El id del edificio debe de ser un numero comprendido entre 1 y 5\n");
 		printf("Por favor introduzca un id válido\n");
+		return (1);
+	}
+	return (0);
+}
+
+
+int	check_correct_type(char c)
+{
+	if (c != 'B' || c != 'N' || c != 'L')
+	{
+		printf("Tipo de apartamento incorrecto por favor vuelva a introducir el tipo de apartamento que desea\n");
 		return (1);
 	}
 	return (0);

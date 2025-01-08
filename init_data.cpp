@@ -6,12 +6,11 @@
  * EMAIL: #jolivares142@alumno.uned.es#
  ***************************************/
 
-#include "gesRAE.hpp"
+#include "gesRAE.h"
 
-static void init_reservations(reservation reservations[])
+static void init_reservations(TypeReserv reservations)
 {
 	int i = 0;
-	char action;
 	while (i < 366)
 	{
 		reservations[i].number = 0;
@@ -22,14 +21,12 @@ static void init_reservations(reservation reservations[])
 		reservations[i].exit_day = 0;
 		reservations[i].exit_month = 0;
 		reservations[i].exit_year = 0;
-		reservations[i].apartment_type = '\0';
-		if (i == 5)
-			reservations[i].apartment_type = 'B';
+		reservations[i].apartment_type = -1;
 		i++;
 	}
 }
 
-void init_data(building buildings[])
+void init_data(TypeBuilding buildings)
 {
 	typedef char name[5][10];
 	name names = {"Apolo", "Atenea", "Zeus", "Efesto", "Hermes"};
