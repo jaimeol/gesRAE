@@ -95,7 +95,7 @@ void do_reservation(TypeBuilding buildings)
         scanf(" %c", &action);
         if (action == 'S')
         {
-          system("cls");
+          system("clear");
           printf("Realizando reserva\n");
           res_i++;
           sleep(1);

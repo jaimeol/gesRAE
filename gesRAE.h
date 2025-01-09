@@ -17,6 +17,7 @@
 
 typedef char TypeName[20];
 typedef char TypeRef[8];
+typedef char TypeString[21];
 
 typedef enum ApartmentType
 {
@@ -67,7 +68,7 @@ void init_data(TypeBuilding buildings);
 void print_normal_spaces(int num);
 void print_basic_spaces(int num);
 void print_name_spaces(TypeBuilding buildings, int i);
-int	check_name_len(char str[]);
+int	check_name_len(TypeString str);
 int	check_total_apartments(TypeBuilding buildings, int id);
 int	check_correct_id(int id);
 int	check_correct_type(char c);
@@ -75,7 +76,8 @@ int	check_correct_type(char c);
 bool leap_year(int year);
 int	month_days(int month, int year);
 void print_date_format(int month);
-void print_reservation_number(reservation res[], int i);
+void print_reservation_number(TypeReserv res, int i);
 void assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type, int res_i);
 void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i);
 void print_reservations(TypeBuilding buildings, int id);
+int	check_reference(TypeBuilding buildings, TypeRef ref);

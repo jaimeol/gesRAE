@@ -40,7 +40,7 @@ int	check_total_apartments(TypeBuilding buildings, int id)
 	else if (total_apartments < 1)
 	{
 
-		system ("cls");
+		system ("clear");
 		printf("Dando de baja el edificio\n");
 		sleep(1);
 		return (2);

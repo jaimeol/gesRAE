@@ -8,20 +8,19 @@
 
 #include "gesRAE.h"
 
-static void check_available(building buildings[], int id, int entry_day, int entry_month, int entry_year, int length)
+static void check_available(TypeBuilding buildings, int id, int entry_day, int entry_month, int entry_year, int length)
 {
-	int basic_available = buildings[id - 1].basic_available;
-	int normal_available = buildings[id - 1].normal_available;
-	int luxury_available = buildings[id - 1].luxury_available;
+	int basic_available = buildings[id - 1].basic;
+	int normal_available = buildings[id - 1].normal;
+	int luxury_available = buildings[id - 1].luxury;
 	int i = 0;
 
 	while (i < 366)
 	{
-		if (buildings[id - 1].reservations[i].entry_year == entry_year &&
-			buildings[id - 1].reservations[i].entry_month == entry_month)
+		if (buildings[id - 1].reservations[i].entry_year >= entry_year && buildings[id - 1].reservations[i].entry_month >= entry_month)
+		{
+			if ((buildings[id - 1].reservations[i].entry_day >= entry_day) && (buildings[id - 1].reservations[i].exit_day <= (entry_day + length)))
 			{
-			if ((buildings[id - 1].reservations[i].entry_day >= entry_day) &&
-				(buildings[id - 1].reservations[i].exit_day <= (entry_day + length))) {
 				if (buildings[id - 1].reservations[i].apartment_type == 'B')
 				{
 					basic_available--;
@@ -45,7 +44,7 @@ static void check_available(building buildings[], int id, int entry_day, int ent
 }
 
 
-void display_available(building buildings[])
+void display_available(TypeBuilding buildings)
 {
 	system("clear");
 	int id, entry_day, entry_month, entry_year, length;

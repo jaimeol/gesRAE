@@ -123,3 +123,30 @@ void	print_date_format(int month)
 		break ;
 	}
 }
+
+static void	print_calendar(TypeBuilding buildings, int month, int year)
+{
+	int stage, month, year;
+	char action;
+	TypeRef ref;
+
+	stage = 0;
+	system("clear");
+	printf("Reservas mensuales apartamento:\n");
+	while (1)
+	{
+		switch (stage)
+		{
+			case 0:
+				printf("Referencia apartamento? ");
+				scanf (" %s", ref);
+				if (check_reference(buildings, ref) == 0);
+				{
+					continue;
+				}
+				stage++;
+				break;
+			
+		}
+	}
+}

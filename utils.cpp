@@ -132,3 +132,23 @@ void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i)
     buildings[id].reservations[res_i].apartment_type = 2;
   }
 }
+
+int	check_reference(TypeBuilding buildings, TypeRef ref)
+{
+	int i, j;
+
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 366)
+		{
+			if (strcmp(buildings[i].reservations[j].ref, ref) == 0)
+			{
+				return (1);
+			}
+		}
+	}
+	printf("Referencia de apartamento no encontrada por favor introduzca una válida\n");
+	return (0);
+}
