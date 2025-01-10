@@ -21,15 +21,15 @@ static void check_available(TypeBuilding buildings, int id, int entry_day, int e
 		{
 			if ((buildings[id - 1].reservations[i].entry_day >= entry_day) && (buildings[id - 1].reservations[i].exit_day <= (entry_day + length)))
 			{
-				if (buildings[id - 1].reservations[i].apartment_type == 'B')
+				if (buildings[id - 1].reservations[i].apartment_type == 0)
 				{
 					basic_available--;
 				}
-				else if (buildings[id - 1].reservations[i].apartment_type == 'N')
+				else if (buildings[id - 1].reservations[i].apartment_type == 1)
 				{
 					normal_available--;
 				}
-				else if (buildings[id - 1].reservations[i].apartment_type == 'L')
+				else if (buildings[id - 1].reservations[i].apartment_type == 2)
 				{
 					luxury_available--;
 				}

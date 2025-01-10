@@ -124,9 +124,9 @@ void	print_date_format(int month)
 	}
 }
 
-static void	print_calendar(TypeBuilding buildings, int month, int year)
+void	print_calendar(TypeBuilding buildings, int month, int year)
 {
-	int stage, month, year;
+	int stage;
 	char action;
 	TypeRef ref;
 
@@ -146,7 +146,7 @@ static void	print_calendar(TypeBuilding buildings, int month, int year)
 				}
 				stage++;
 				break;
-			
+			case
 		}
 	}
 }

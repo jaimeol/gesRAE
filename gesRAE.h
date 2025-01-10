@@ -19,12 +19,6 @@ typedef char TypeName[20];
 typedef char TypeRef[8];
 typedef char TypeString[21];
 
-typedef enum ApartmentType
-{
-  BASIC,
-  NORMAL,
-  LUXURY
-};
 
 typedef struct reservation
 {
@@ -76,8 +70,8 @@ int	check_correct_type(char c);
 bool leap_year(int year);
 int	month_days(int month, int year);
 void print_date_format(int month);
+int	assign_res_number(TypeBuilding buildings, int entry_year, int id);
 void print_reservation_number(TypeReserv res, int i);
 void assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type, int res_i);
 void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i);
-void print_reservations(TypeBuilding buildings, int id);
 int	check_reference(TypeBuilding buildings, TypeRef ref);

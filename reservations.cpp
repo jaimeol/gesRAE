@@ -9,7 +9,7 @@
 #include "gesRAE.h"
 
 static int res_i = 0;
-
+static int last_year = 0;
 void do_reservation(TypeBuilding buildings)
 {
   char apartment_type, action;
@@ -75,39 +75,39 @@ void do_reservation(TypeBuilding buildings)
 				scanf("%d", &length);
 				stage++;
 				break;
-      case 6:
-        buildings[id - 1].reservations[res_i].entry_day = entry_day;
-        buildings[id - 1].reservations[res_i].entry_month = entry_month;
-        buildings[id - 1].reservations[res_i].entry_year = entry_year;
-        buildings[id - 1].reservations[res_i].length = length;
-        get_exit_date(buildings[id - 1].reservations, res_i);
-        printf("\tDatos de la Reserva:\n");
-        buildings[id - 1].reservations[res_i].number = res_i + 1;
-        print_reservation_number(buildings[id - 1].reservations, res_i);
-        assign_reserv_ref(buildings, id, apartment_type, res_i);
-        printf("  Edificio: %s (Id = %d)\n", buildings[id - 1].name, id);
-        printf("  Referencia apartamento: %s\n", buildings[id - 1].reservations[res_i].ref);
-        printf("  Fecha entrada: %d/%d/%d\n", entry_day, entry_month, entry_year);
-        printf("  Duración de estancia: %d días\n", length);
-        printf("  Fecha salida: %d/%d/%d\n", buildings[id - 1].reservations[res_i].exit_day,
-        buildings[id - 1].reservations[res_i].exit_month, buildings[id - 1].reservations[res_i].exit_year);
-        printf("Es correcta la operación(S/N)? ");
-        scanf(" %c", &action);
-        if (action == 'S')
-        {
-          system("clear");
-          printf("Realizando reserva\n");
-          res_i++;
-          sleep(1);
-          return ;
-        }
-        else
-        {
-          printf("Reserva cancelada\n");
-          sleep(1);
-          return ;
-        }
-        break ;
+	  		case 6:
+				buildings[id - 1].reservations[res_i].number = assign_res_number(buildings, entry_year, id - 1);
+				buildings[id - 1].reservations[res_i].entry_month = entry_month;
+				buildings[id - 1].reservations[res_i].entry_day = entry_day;
+				buildings[id - 1].reservations[res_i].entry_year = entry_year;
+				buildings[id - 1].reservations[res_i].length = length;
+				get_exit_date(buildings[id - 1].reservations, res_i);
+				printf("      Datos de la Reserva:\n");
+				print_reservation_number(buildings[id - 1].reservations, res_i);
+				assign_reserv_ref(buildings, id - 1, apartment_type, res_i);
+				printf("  Edificio: %s (Id = %d)\n", buildings[id - 1].name, id);
+				printf("  Referencia apartamento: %s\n", buildings[id - 1].reservations[res_i].ref);
+				printf("  Fecha entrada: %d/%d/%d\n", entry_day, entry_month, entry_year);
+				printf("  Duración de estancia: %d días\n", length);
+				printf("  Fecha salida: %d/%d/%d\n", buildings[id - 1].reservations[res_i].exit_day,
+				buildings[id - 1].reservations[res_i].exit_month, buildings[id - 1].reservations[res_i].exit_year);
+				printf("Es correcta la operación(S/N)? ");
+				scanf(" %c", &action);
+				if (action == 'S')
+				{
+				  system("clear");
+				  printf("Realizando reserva\n");
+				  res_i++;
+				  sleep(1);
+				  return ;
+				}
+				else
+				{
+					printf("Reserva cancelada\n");
+					sleep(1);
+					return ;
+				}
+				break ;
 		}
 	}
 }

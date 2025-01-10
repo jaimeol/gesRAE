@@ -71,3 +71,5 @@ int	check_correct_type(char c)
 	}
 	return (0);
 }
+
+
