@@ -1,5 +1,6 @@
 SRC = manage.cpp edit_building.cpp checkers.cpp list_buildings.cpp utils.cpp \
-		init_data.cpp available_apartments.cpp reservations.cpp calendar.cpp
+		init_data.cpp available_apartments.cpp reservations.cpp calendar.cpp \
+		calendar_utils.cpp
 OBJECTS = $(SRC:.cpp=.o)
 CC = c++
 RM = rm -f

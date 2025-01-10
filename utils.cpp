@@ -82,6 +82,8 @@ void	assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type,
 		int res_i)
 {
 	TypeRef	aux_ref;
+	int		found_reference;
+	int		is_overlap;
 
 	int number = 1;
 	aux_ref[0] = 'A';
@@ -101,28 +103,42 @@ void	assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type,
 	{
 		aux_ref[5] = 'L';
 	}
-	for (int i = 0; i < 366; i++)
+	found_reference = 0;
+	while (!found_reference)
 	{
-		if (i != res_i)
+		found_reference = 1;
+		for (int i = 0; i < 366; i++)
 		{
-			if ((buildings[id].reservations[res_i].entry_year == buildings[id].reservations[i].entry_year
-					|| buildings[id].reservations[res_i].exit_year == buildings[id].reservations[i].exit_year)
-				&& (buildings[id].reservations[res_i].entry_month == buildings[id].reservations[i].entry_month
-					|| buildings[id].reservations[res_i].exit_month == buildings[id].reservations[i].exit_month))
+			if (i != res_i)
 			{
-				if ((buildings[id].reservations[res_i].entry_day >= buildings[id].reservations[i].entry_day
+				is_overlap = 0;
+				if ((buildings[id].reservations[res_i].entry_year == buildings[id].reservations[i].entry_year
+						&& buildings[id].reservations[res_i].entry_month == buildings[id].reservations[i].entry_month
+						&& buildings[id].reservations[res_i].entry_day >= buildings[id].reservations[i].entry_day
 						&& buildings[id].reservations[res_i].entry_day <= buildings[id].reservations[i].exit_day)
-					|| (buildings[id].reservations[res_i].exit_day >= buildings[id].reservations[i].entry_day
+					|| (buildings[id].reservations[res_i].exit_year == buildings[id].reservations[i].entry_year
+						&& buildings[id].reservations[res_i].exit_month == buildings[id].reservations[i].exit_month
+						&& buildings[id].reservations[res_i].exit_day >= buildings[id].reservations[i].entry_day
 						&& buildings[id].reservations[res_i].exit_day <= buildings[id].reservations[i].exit_day))
 				{
 					number++;
+					break ;
+				}
+				if (strncmp(buildings[id].reservations[i].ref, aux_ref, 8) == 0)
+				{
+					number++;
+					found_reference = 0;
+					break ;
 				}
 			}
 		}
+		aux_ref[6] = '0' + (number / 10);
+		aux_ref[7] = '0' + (number % 10);
+		if (found_reference)
+		{
+			strcpy(buildings[id].reservations[res_i].ref, aux_ref);
+		}
 	}
-	aux_ref[6] = '0' + (number / 10);
-	aux_ref[7] = '0' + (number % 10);
-	strcpy(buildings[id].reservations[res_i].ref, aux_ref);
 }
 
 void	assign_apartment_type(TypeBuilding buildings, char type, int id,
@@ -153,12 +169,14 @@ int	check_reference(TypeBuilding buildings, TypeRef ref)
 		{
 			if (strcmp(buildings[i].reservations[j].ref, ref) == 0)
 			{
-				return (1);
+				return (i);
 			}
+			j++;
 		}
+		i++;
 	}
-	printf("Referencia de apartamento no encontrada por favor introduzca una válida\n");
-	return (0);
+	printf("\033[31mError\033[0m: Referencia de apartamento no encontrada por favor introduzca una válida\n");
+	return (-1);
 }
 
 int	assign_res_number(TypeBuilding buildings, int entry_year, int id)

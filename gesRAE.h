@@ -19,7 +19,6 @@ typedef char TypeName[20];
 typedef char TypeRef[8];
 typedef char TypeString[21];
 
-
 typedef struct reservation
 {
 	int number;
@@ -46,6 +45,7 @@ typedef struct building
 	int basic_available;
 	int normal_available;
 	int luxury_available;
+	int	number_res;
 	TypeReserv reservations;
 };
 
@@ -75,3 +75,7 @@ void print_reservation_number(TypeReserv res, int i);
 void assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type, int res_i);
 void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i);
 int	check_reference(TypeBuilding buildings, TypeRef ref);
+
+int	zeller_algo(int day, int month, int year);
+void monthly_reservations(TypeBuilding buildings);
+void print_first_points(int &pipe, int &line_chars, int &total_digits, int &new_line, int month, int year);

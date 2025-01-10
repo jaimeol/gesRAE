@@ -18,6 +18,8 @@ static void check_actions(char action, building buildings[])
 		display_available(buildings);
 	else if (action == 'R')
 		do_reservation(buildings);
+	else if (action == 'M')
+		monthly_reservations(buildings);
 	else if (action == 'S')
 		exit (0);
 }
