@@ -40,6 +40,7 @@ void init_data(TypeBuilding buildings)
 		buildings[i].basic_available = buildings[i].basic;
 		buildings[i].normal_available = buildings[i].normal;
 		buildings[i].luxury_available = buildings[i].luxury;
+		buildings[i].number_res = 0;
 		strcpy(buildings[i].name, names[i]);
 		init_reservations(buildings[i].reservations);
 		i++;

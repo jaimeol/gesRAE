@@ -10,9 +10,23 @@
 
 static int res_i = 0;
 
+static void cancel_reservation(TypeReserv res, int res_i)
+{
+	res[res_i].number = 0;
+	res[res_i].entry_day = 0;
+	res[res_i].entry_month = 0;
+	res[res_i].entry_year = 0;
+	res[res_i].length = 0;
+	res[res_i].exit_day = 0;
+	res[res_i].exit_month = 0;
+	res[res_i].exit_year = 0;
+	res[res_i].apartment_type = -1;
+	strcpy(res[res_i].ref, "");
+}
+
 void do_reservation(TypeBuilding buildings)
 {
-  char apartment_type, action;
+ 	char apartment_type, action;
 	int id, entry_day, entry_month, entry_year, length, stage;
 	stage = 0;
 	system("clear");
@@ -109,6 +123,7 @@ void do_reservation(TypeBuilding buildings)
 				else
 				{
 					printf("Reserva cancelada\n");
+					cancel_reservation(buildings[id - 1].reservations, res_i);
 					sleep(1);
 					return ;
 				}

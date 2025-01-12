@@ -43,6 +43,8 @@ int	check_total_apartments(TypeBuilding buildings, int id)
 		system ("clear");
 		printf("Dando de baja el edificio\n");
 		buildings[id].id = -1;
+		buildings[id].number_res = 0;
+		strcpy(buildings[id].name, "");
 		sleep(1);
 		return (2);
 	}
