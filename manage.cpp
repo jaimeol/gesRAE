@@ -8,7 +8,7 @@
 
 #include "gesRAE.h"
 
-static void check_actions(char action, building buildings[])
+static void check_actions(char action, TypeBuilding buildings)
 {
 	if (action == 'E')
 		edit_building(buildings);
@@ -26,7 +26,7 @@ static void check_actions(char action, building buildings[])
 
 int main()
 {
-	building buildings[5];
+	TypeBuilding buildings;
 	init_data(buildings);
 	while (1)
 	{

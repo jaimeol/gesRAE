@@ -137,7 +137,7 @@ void get_exit_date(TypeReserv res, int i)
 	int total_days = month_days(res[i].entry_month, res[i].entry_year);
 	int aux_entry_month = res[i].entry_month;
 	int aux_entry_year = res[i].entry_year;
-  res[i].exit_day = res[i].entry_day + res[i].length;
+  	res[i].exit_day = res[i].entry_day + res[i].length;
 
 	while (res[i].exit_day > total_days)
 	{
@@ -153,4 +153,3 @@ void get_exit_date(TypeReserv res, int i)
 	res[i].exit_month = aux_entry_month;
 	res[i].exit_year = aux_entry_year;
 }
-

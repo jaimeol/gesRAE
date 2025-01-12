@@ -91,18 +91,7 @@ void	assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type,
 	aux_ref[2] = 'T';
 	aux_ref[3] = '0';
 	aux_ref[4] = '0' + (id + 1 % 10);
-	if (apartment_type == 'B')
-	{
-		aux_ref[5] = 'B';
-	}
-	else if (apartment_type == 'N')
-	{
-		aux_ref[5] = 'N';
-	}
-	else if (apartment_type == 'L')
-	{
-		aux_ref[5] = 'L';
-	}
+	aux_ref[5] = apartment_type;
 	found_reference = 0;
 	while (!found_reference)
 	{
@@ -111,7 +100,6 @@ void	assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type,
 		{
 			if (i != res_i)
 			{
-				is_overlap = 0;
 				if ((buildings[id].reservations[res_i].entry_year == buildings[id].reservations[i].entry_year
 						&& buildings[id].reservations[res_i].entry_month == buildings[id].reservations[i].entry_month
 						&& buildings[id].reservations[res_i].entry_day >= buildings[id].reservations[i].entry_day
@@ -122,22 +110,13 @@ void	assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type,
 						&& buildings[id].reservations[res_i].exit_day <= buildings[id].reservations[i].exit_day))
 				{
 					number++;
-					break ;
-				}
-				if (strncmp(buildings[id].reservations[i].ref, aux_ref, 8) == 0)
-				{
-					number++;
-					found_reference = 0;
-					break ;
+					continue;
 				}
 			}
 		}
 		aux_ref[6] = '0' + (number / 10);
 		aux_ref[7] = '0' + (number % 10);
-		if (found_reference)
-		{
-			strcpy(buildings[id].reservations[res_i].ref, aux_ref);
-		}
+		strcpy(buildings[id].reservations[res_i].ref, aux_ref);
 	}
 }
 
