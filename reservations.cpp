@@ -9,7 +9,7 @@
 #include "gesRAE.h"
 
 static int res_i = 0;
-static int last_year = 0;
+
 void do_reservation(TypeBuilding buildings)
 {
   char apartment_type, action;
@@ -26,7 +26,12 @@ void do_reservation(TypeBuilding buildings)
 				scanf("%d", &id);
 				if (check_correct_id(id) == 1)
 				{
-					continue ;
+					continue;
+				}
+				if (buildings[id].id == -1)
+				{
+					printf ("Edificio no disponible, por favor introduzca un edificio válido\n");
+					continue;
 				}
 				stage++;
 				break;
@@ -35,7 +40,7 @@ void do_reservation(TypeBuilding buildings)
 				scanf(" %c", &apartment_type);
 				if (check_correct_type(apartment_type) == 1)
 				{
-					continue ;
+					continue;
 				}
 				assign_apartment_type(buildings, apartment_type, id - 1, res_i);
 				stage++;

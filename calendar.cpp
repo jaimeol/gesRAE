@@ -124,88 +124,45 @@ void	print_date_format(int month)
 	}
 }
 
-static void	print_calendar(TypeBuilding buildings,TypeRef ref , int month, int year)
+static void	print_calendar(TypeBuilding buildings, int id, TypeRef ref, int month, int year)
 {
-	int days_num, final_day, pipe, new_line, total_digits, line_chars;
+	int days_num, final_day, pipe, new_line, total_digits, line_chars, free_days;
+	TypeArray indexes;
+	for (int i = 0; i < 366; i++)
+	{
+		indexes[i] = -1;
+	}
+	get_res_indexes(buildings, ref, indexes, id);
 	printf("\t  ");
 	print_date_format(month);
 	printf("%-1d\n", year);
 	printf("\t  ===========================\n");
 	printf("\t  LU  MA  MI  JU  VI | SA  DO\n");
 	printf("\t  ===========================\n");
+	free_days = 0;
 	days_num = month_days(month, year);
 	pipe = 4;
 	line_chars = 0;
 	new_line = 1;
 	total_digits = 1;
 	print_first_points(pipe, line_chars, total_digits, new_line, month, year);
-	for (int day = 1; day <= days_num; day++)
-	{
-		if (line_chars == 0)
-			printf("\t  ");
-		if (day < 10)
-		{
-			printf (" ");
-		}
-		if (day < 10 && new_line == 1 && line_chars != 0)
-		{
-			printf (" %i ", day);
-		}
-		else
-			printf ("%i ", day);
-		if (pipe % 8 == 0 && day < 10)
-		{
-			printf ("|");
-			pipe = 1;
-		}
-		if (pipe % 8 == 0 && day >= 10)
-		{
-			printf ("|");
-			pipe = 1;
-		}
-		pipe++;
-		printf (" ");
-		line_chars++;
-		if (new_line % 7 == 0)
-		{
-			printf("\n");
-			line_chars = 0;
-		}
-		new_line++;
-		total_digits++;
-	}
-	if (line_chars != 0)
-	{
-		for (int i = line_chars; i < 7; i++)
-		{
-			if (pipe % 8 == 0)
-			{
-				printf(" .");
-				printf(" | ");
-				pipe = 1;
-			}
-			else if (i == 6)
-			{
-				printf(" .");
-			}
-			else
-			{
-				printf(" .  ");
-			}
-			pipe++;
-			new_line++;
-		}
-	}
+	free_days = print_numbers(buildings, id, indexes, month, year, days_num, pipe, line_chars, new_line, total_digits);
+	print_last_points(line_chars, pipe, new_line);
 	printf("\n");
+	print_month_reservations(buildings, indexes, free_days, id, month, year);
 }
 
 void	monthly_reservations(TypeBuilding buildings)
 {
 	int stage, month, year, id;
 	char action;
+	TypeArray indexes;
 	TypeRef ref;
-
-	stage = 3;
+	stage = 0;
+	for (int i = 0; i < 366; i++)
+	{
+		indexes[i] = -1;
+	}
 	system("clear");
 	printf("Reservas mensuales apartamento:\n");
 	while (1)
@@ -215,7 +172,7 @@ void	monthly_reservations(TypeBuilding buildings)
 			case 0:
 				printf("Referencia apartamento? ");
 				scanf (" %s", ref);
-				id = check_reference(buildings, ref);
+				id = get_id(buildings, ref);
 				if (id == -1)
 				{
 					continue;
@@ -243,10 +200,29 @@ void	monthly_reservations(TypeBuilding buildings)
 				stage++;
 				break;
 			case 3:
-				printf("\tEstado Mensual Apartamento: %s\n", "APT01B01");
-				printf("\t\tEdificio: %s\n", "Apolo");
-				print_calendar(buildings, "APT01B01", 2, 2011);
-				while (1);
+				printf("\tEstado Mensual Apartamento: %s\n", ref);
+				printf("\t\tEdificio: %s\n", buildings[id].name);
+				print_calendar(buildings, id, ref, month, year);
+				stage++;
+				break;
+			case 4:
+				printf("Mostrar otro mes? (S/N) ");
+				scanf(" %c", &action);
+				if (action == 'S')
+				{
+					monthly_reservations(buildings);
+					return;
+				}
+				else if (action == 'N')
+				{
+					return;
+				}
+				else
+				{
+					printf("Acción no válida\n");
+					break;
+				}
+				break;
 		}
 	}
 }

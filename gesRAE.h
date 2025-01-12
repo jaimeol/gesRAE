@@ -16,8 +16,9 @@
 // #include <windows.h>
 
 typedef char TypeName[20];
-typedef char TypeRef[8];
+typedef char TypeRef[9];
 typedef char TypeString[21];
+typedef int TypeArray[366];
 
 typedef struct reservation
 {
@@ -74,8 +75,12 @@ int	assign_res_number(TypeBuilding buildings, int entry_year, int id);
 void print_reservation_number(TypeReserv res, int i);
 void assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type, int res_i);
 void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i);
-int	check_reference(TypeBuilding buildings, TypeRef ref);
+int	get_id(TypeBuilding buildings, TypeRef ref);
+void get_res_indexes(TypeBuilding buildings, TypeRef ref, TypeArray &indexes, int id);
 
 int	zeller_algo(int day, int month, int year);
 void monthly_reservations(TypeBuilding buildings);
 void print_first_points(int &pipe, int &line_chars, int &total_digits, int &new_line, int month, int year);
+int print_numbers(TypeBuilding buildings, int id, TypeArray indexes, int month, int year, int days_num, int &pipe, int &line_chars, int &new_line, int &total_digits);
+void print_last_points(int line_chars, int pipe, int new_line);
+void print_month_reservations(TypeBuilding buildings, TypeArray indexes, int free_days, int id, int month, int year);
