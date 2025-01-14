@@ -158,19 +158,6 @@ int	get_id(TypeBuilding buildings, TypeRef ref)
 	return (-1);
 }
 
-void get_res_indexes(TypeBuilding buildings, TypeRef ref, TypeArray &indexes, int id)
-{
-	int count = 0;
-	for (int i = 0; i < 366; i++)
-	{
-		if (strcmp(buildings[id].reservations[i].ref, ref) == 0)
-		{
-    		indexes[count] = i;
-    		count++;
-		}
-	}
-}
-
 int	assign_res_number(TypeBuilding buildings, int entry_year, int id)
 {
 	int i, number;
@@ -183,39 +170,4 @@ int	assign_res_number(TypeBuilding buildings, int entry_year, int id)
 		i++;
 	}
 	return (number);
-}
-
-void print_month_reservations(TypeBuilding buildings, TypeArray indexes, int free_days, int id, int month, int year)
-{
-	int days_num, reserved_days;
-	int	exit_year, exit_month;
-	int	entry_year, entry_month, entry_day;
-	int	number, length;
-
-	days_num = month_days(month, year);
-	reserved_days = days_num - free_days;
-	for (int i = 0; indexes[i] != -1; i++)
-	{
-		entry_year = buildings[id].reservations[indexes[i]].entry_year;
-		exit_year = buildings[id].reservations[indexes[i]].exit_year;
-		entry_month = buildings[id].reservations[indexes[i]].entry_month;
-		exit_month = buildings[id].reservations[indexes[i]].exit_month;
-		entry_day = buildings[id].reservations[indexes[i]].entry_day;
-		number = buildings[id].reservations[indexes[i]].number;
-		length = buildings[id].reservations[indexes[i]].length;
-		if ((entry_year == year || exit_year == year) 
-			&& (entry_month <= month && exit_month >= month))
-		{
-			if (number < 10)
-			{
-				printf("Reserva 0%d/%d: Fecha entrada %d/%d/%d y de %d días\n", number, entry_year, entry_day, entry_month, entry_year, length);
-			}
-			else
-			{
-				printf("Reserva %d/%d: Fecha entrada %d/%d/%d y de %d días\n", number, entry_year, entry_day, entry_month, entry_year, length);
-			}
-		}
-	}
-	printf("Total días reservados del mes: %d días\n", reserved_days);
-	printf("Total días libres del mes: %d días\n", free_days);
 }

@@ -8,7 +8,7 @@
 
 #include "gesRAE.h"
 
-void	display_list(building buildings[])
+void	display_list(TypeBuilding buildings)
 {
 	system ("clear");
 	char option;

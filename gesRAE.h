@@ -52,6 +52,31 @@ typedef struct building
 
 typedef building TypeBuilding[5];
 
+typedef struct CalendarData
+{
+	int days_num;
+	int pipe;
+	int new_line;
+	int total_digits;
+	int line_chars;
+	int free_days;
+	int reserved_days;
+	TypeArray indexes;
+};
+
+typedef struct CalendarioMes
+{
+	CalendarData data;
+	void print_calendar(TypeBuilding buildings, int id, TypeRef ref, int month, int year);
+	void get_res_indexes(TypeBuilding buildings, TypeRef ref, int id);
+	void print_date_format(int month);
+	void print_first_points(int month, int year);
+	void print_numbers(TypeBuilding buildings, int id, int month, int year);
+	void print_last_points();
+	void print_month_reservations(TypeBuilding buildings, int id, int month, int year);
+	void init_data(int month, int year);
+};
+
 void do_reservation(TypeBuilding buildings);
 void get_exit_date(TypeReserv res, int i);
 
@@ -76,11 +101,5 @@ void print_reservation_number(TypeReserv res, int i);
 void assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type, int res_i);
 void assign_apartment_type(TypeBuilding buildings, char type, int id, int res_i);
 int	get_id(TypeBuilding buildings, TypeRef ref);
-void get_res_indexes(TypeBuilding buildings, TypeRef ref, TypeArray &indexes, int id);
 
-int	zeller_algo(int day, int month, int year);
 void monthly_reservations(TypeBuilding buildings);
-void print_first_points(int &pipe, int &line_chars, int &total_digits, int &new_line, int month, int year);
-int print_numbers(TypeBuilding buildings, int id, TypeArray indexes, int month, int year, int days_num, int &pipe, int &line_chars, int &new_line, int &total_digits);
-void print_last_points(int line_chars, int pipe, int new_line);
-void print_month_reservations(TypeBuilding buildings, TypeArray indexes, int free_days, int id, int month, int year);
