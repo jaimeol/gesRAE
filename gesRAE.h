@@ -13,7 +13,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
-// #include <windows.h>
 
 typedef char TypeName[20];
 typedef char TypeRef[9];
@@ -43,9 +42,6 @@ typedef struct building
 	int basic;
 	int normal;
 	int luxury;
-	int basic_available;
-	int normal_available;
-	int luxury_available;
 	int	number_res;
 	TypeReserv reservations;
 };
@@ -74,7 +70,7 @@ typedef struct CalendarioMes
 	void print_numbers(TypeBuilding buildings, int id, int month, int year);
 	void print_last_points();
 	void print_month_reservations(TypeBuilding buildings, int id, int month, int year);
-	void init_data(int month, int year);
+	void init_data();
 };
 
 void do_reservation(TypeBuilding buildings);
@@ -92,6 +88,7 @@ int	check_name_len(TypeString str);
 int	check_total_apartments(TypeBuilding buildings, int id);
 int	check_correct_id(int id);
 int	check_correct_type(char c);
+int check_possible_date(int day, int month, int year);
 
 bool leap_year(int year);
 int	month_days(int month, int year);

@@ -10,21 +10,15 @@
 
 void	display_list(TypeBuilding buildings)
 {
-	system ("clear");
 	char option;
 	int i = 0;
-	printf("Id    Nombre    Aptos Básicos    Aptos Normales    Aptos de Lujo\n");
+	system ("clear");
+	printf("Id    Nombre    Aptos Basicos    Aptos Normales    Aptos de Lujo\n");
 	while (i < 5)
 	{
 		if (buildings[i].id == i + 1)
 		{
-			printf("%d     %s", buildings[i].id, buildings[i].name);
-			print_name_spaces(buildings, i);
-			printf("%d", buildings[i].basic);
-			print_basic_spaces(buildings[i].basic);
-			printf("%d", buildings[i].normal);
-			print_normal_spaces(buildings[i].normal);
-			printf("%d\n", buildings[i].luxury);
+			printf("%-5d %-12s %-16d %-16d %-16d\n", buildings[i].id, buildings[i].name, buildings[i].basic, buildings[i].normal, buildings[i].luxury);
 		}
 		i++;
 	}

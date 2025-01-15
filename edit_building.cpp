@@ -44,21 +44,18 @@ void edit_building(TypeBuilding buildings)
 				printf("  Numero de apartamentos basicos: ");
 				scanf("%d", &basic);
 				buildings[id - 1].basic = basic;
-				buildings[id - 1].basic_available = basic;
 				stage++;
 				break;
 			case 3:
 				printf("  Numero de apartamentos normales: ");
 				scanf("%d", &normal);
 				buildings[id - 1].normal = normal;
-				buildings[id - 1].normal_available = normal;
 				stage++;
 				break ;
 			case 4:
 				printf("  Numero de apartamentos de lujo: ");
 				scanf("%d", &luxury);
 				buildings[id - 1].luxury = luxury;
-				buildings[id - 1].luxury_available = luxury;
 				if (check_total_apartments(buildings, id - 1) == 1)
 				{
 					stage = 2;

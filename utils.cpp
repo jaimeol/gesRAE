@@ -8,135 +8,6 @@
 
 #include "gesRAE.h"
 
-void	print_name_spaces(TypeBuilding buildings, int i)
-{
-	int	space_num;
-	int	j;
-
-	space_num = 16 - strlen(buildings[i].name);
-	j = 0;
-	while (j < space_num)
-	{
-		printf(" ");
-		j++;
-	}
-}
-
-void	print_basic_spaces(int num)
-{
-	int	space_num;
-	int	i;
-
-	i = 0;
-	if (num > 10)
-	{
-		space_num = 15;
-	}
-	else
-	{
-		space_num = 16;
-	}
-	while (i < space_num)
-	{
-		printf(" ");
-		i++;
-	}
-}
-
-void	print_normal_spaces(int num)
-{
-	int	space_num;
-	int	i;
-
-	i = 0;
-	if (num > 10)
-	{
-		space_num = 16;
-	}
-	else
-	{
-		space_num = 17;
-	}
-	while (i < space_num)
-	{
-		printf(" ");
-		i++;
-	}
-}
-
-void	print_reservation_number(TypeReserv res, int i)
-{
-	if (res[i].number < 10)
-	{
-		printf("  Numero de reserva: 0%d/%d\n", res[i].number,
-			res[i].entry_year);
-	}
-	else
-	{
-		printf("  Numero de reserva: %d/%d\n", res[i].number,
-			res[i].entry_year);
-	}
-}
-
-void	assign_reserv_ref(TypeBuilding buildings, int id, char apartment_type,
-		int res_i)
-{
-	TypeRef	aux_ref;
-	int		found_reference;
-	int		is_overlap;
-
-	int number = 1;
-	aux_ref[0] = 'A';
-	aux_ref[1] = 'P';
-	aux_ref[2] = 'T';
-	aux_ref[3] = '0';
-	aux_ref[4] = '0' + (id + 1 % 10);
-	aux_ref[5] = apartment_type;
-	found_reference = 0;
-	while (!found_reference)
-	{
-		found_reference = 1;
-		for (int i = 0; i < 366; i++)
-		{
-			if (i != res_i)
-			{
-				if ((buildings[id].reservations[res_i].entry_year == buildings[id].reservations[i].entry_year
-						&& buildings[id].reservations[res_i].entry_month == buildings[id].reservations[i].entry_month
-						&& buildings[id].reservations[res_i].entry_day >= buildings[id].reservations[i].entry_day
-						&& buildings[id].reservations[res_i].entry_day <= buildings[id].reservations[i].exit_day)
-					|| (buildings[id].reservations[res_i].exit_year == buildings[id].reservations[i].entry_year
-						&& buildings[id].reservations[res_i].exit_month == buildings[id].reservations[i].exit_month
-						&& buildings[id].reservations[res_i].exit_day >= buildings[id].reservations[i].entry_day
-						&& buildings[id].reservations[res_i].exit_day <= buildings[id].reservations[i].exit_day))
-				{
-					number++;
-					continue;
-				}
-			}
-		}
-		aux_ref[6] = '0' + (number / 10);
-		aux_ref[7] = '0' + (number % 10);
-		strcpy(buildings[id].reservations[res_i].ref, aux_ref);
-	}
-}
-
-void	assign_apartment_type(TypeBuilding buildings, char type, int id,
-		int res_i)
-{
-	if (type == 'B')
-	{
-		buildings[id].reservations[res_i].apartment_type = 0;
-	}
-	else if (type == 'N')
-	{
-		buildings[id].reservations[res_i].apartment_type = 1;
-	}
-	else if (type == 'L')
-	{
-		buildings[id].reservations[res_i].apartment_type = 2;
-	}
-}
-
 int	get_id(TypeBuilding buildings, TypeRef ref)
 {
 	int i, j;
@@ -154,7 +25,7 @@ int	get_id(TypeBuilding buildings, TypeRef ref)
 		}
 		i++;
 	}
-	printf("\033[31mError\033[0m: Referencia de apartamento no encontrada por favor introduzca una válida\n");
+	printf("\033[31mError\033[0m: Referencia de apartamento no encontrada por favor introduzca una valida\n");
 	return (-1);
 }
 
@@ -166,7 +37,9 @@ int	assign_res_number(TypeBuilding buildings, int entry_year, int id)
 	while (i < 366)
 	{
 		if (entry_year == buildings[id].reservations[i].entry_year)
+		{
 			number++;
+		}
 		i++;
 	}
 	return (number);

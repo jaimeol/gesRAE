@@ -68,7 +68,7 @@ void	CalendarioMes::print_numbers(TypeBuilding buildings, int id, int month, int
 						&& entry_month == month && entry_day <= day))
 				&& (exit_year > year || (exit_year == year
 						&& exit_month > month) || (exit_year == year
-						&& exit_month == month && exit_day >= day)))
+						&& exit_month == month && exit_day > day)))
 			{
 				reserved = true;
 			}
@@ -91,12 +91,7 @@ void	CalendarioMes::print_numbers(TypeBuilding buildings, int id, int month, int
 			printf("\033[32m%d\033[0m ", day);
             data.free_days++;
 		}
-		if (data.pipe % 8 == 0 && day < 10)
-		{
-			printf("|");
-			data.pipe = 1;
-		}
-		if (data.pipe % 8 == 0 && day >= 10)
+		if (data.pipe % 8 == 0)
 		{
 			printf("|");
 			data.pipe = 1;
@@ -158,9 +153,10 @@ void CalendarioMes::print_month_reservations(TypeBuilding buildings, int id, int
 	int	exit_year, exit_month;
 	int	entry_year, entry_month, entry_day;
 	int	number, length;
+	int i = 0;
 
 	data.reserved_days = data.days_num - data.free_days;
-	for (int i = 0; data.indexes[i] != -1; i++)
+	while(data.indexes[i] != -1)
 	{
 		entry_year = buildings[id].reservations[data.indexes[i]].entry_year;
 		exit_year = buildings[id].reservations[data.indexes[i]].exit_year;
@@ -169,7 +165,7 @@ void CalendarioMes::print_month_reservations(TypeBuilding buildings, int id, int
 		entry_day = buildings[id].reservations[data.indexes[i]].entry_day;
 		number = buildings[id].reservations[data.indexes[i]].number;
 		length = buildings[id].reservations[data.indexes[i]].length;
-		if ((entry_year == year || exit_year == year) 
+		if ((entry_year == year || exit_year == year)
 			&& (entry_month <= month && exit_month >= month))
 		{
 			if (number < 10)
@@ -181,15 +177,15 @@ void CalendarioMes::print_month_reservations(TypeBuilding buildings, int id, int
 				printf("Reserva %d/%d: Fecha entrada %d/%d/%d y de %d días\n", number, entry_year, entry_day, entry_month, entry_year, length);
 			}
 		}
+		i++;
 	}
 	printf("Total días reservados del mes: %d días\n", data.reserved_days);
 	printf("Total días libres del mes: %d días\n", data.free_days);
 }
 
-void CalendarioMes::init_data(int month, int year)
+void CalendarioMes::init_data()
 {
 	data.free_days = 0;
-	data.days_num = month_days(month, year);
 	data.pipe = 4;
 	data.line_chars = 0;
 	data.new_line = 1;
@@ -199,3 +195,4 @@ void CalendarioMes::init_data(int month, int year)
 		data.indexes[i] = -1;
 	}
 }
+

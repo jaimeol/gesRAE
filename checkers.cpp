@@ -30,6 +30,7 @@ int	check_name_len(TypeString str)
 
 int	check_total_apartments(TypeBuilding buildings, int id)
 {
+	char action;
 	int total_apartments = buildings[id].basic + buildings[id].normal + buildings[id].luxury;
 	if (total_apartments > 20)
 	{
@@ -39,14 +40,23 @@ int	check_total_apartments(TypeBuilding buildings, int id)
 	}
 	else if (total_apartments < 1)
 	{
-
-		system ("clear");
-		printf("Dando de baja el edificio\n");
-		buildings[id].id = -1;
-		buildings[id].number_res = 0;
-		strcpy(buildings[id].name, "");
-		sleep(1);
-		return (2);
+		printf("\033[31mIMPORTANTE:\033[0m todos los apartamentos han sido inicializados a 0\n");
+		printf("\tSi continúa dará de baja el edificio ¿Desea continuar?(S/N) ");
+		scanf(" %c", &action);
+		if (action == 'S')
+		{
+			system ("clear");
+			printf("Dando de baja el edificio\n");
+			buildings[id].id = -1;
+			strcpy(buildings[id].name, "");
+			sleep(1);
+			return (2);
+		}
+		else if (action == 'N')
+		{
+			printf("Por favor vuelva a introducir el número de apartamentos\n");
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -69,10 +79,21 @@ int	check_correct_type(char c)
 	if (c != 'B' && c != 'N' && c != 'L')
 	{
 	  printf("%c\n", c);
-		printf("Tipo de apartamento incorrecto por favor vuelva a introducir el tipo de apartamento que desea\n");
+		printf("\033[31mError\033[0m: Tipo de apartamento incorrecto por favor vuelva a introducir el tipo de apartamento que desea\n");
 		return (1);
 	}
 	return (0);
 }
 
-
+int check_possible_date(int day, int month, int year)
+{
+	if (day > month_days(month, year))
+	{
+		printf("\033[31mError\033[0m: Dia de entrada no posible en el mes actual\n");
+		sleep(1);
+		system("clear");
+		printf("Por favor introduzca una fecha válida\n");
+		return (1);
+	}
+	return (0);
+}

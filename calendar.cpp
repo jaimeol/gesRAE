@@ -158,6 +158,7 @@ void	monthly_reservations(TypeBuilding buildings)
 	CalendarioMes calendar;
 	stage = 0;
 	id = 0;
+	calendar.init_data();
 	system("clear");
 	printf("Reservas mensuales apartamento:\n");
 	while (1)
@@ -197,7 +198,7 @@ void	monthly_reservations(TypeBuilding buildings)
 			case 3:
 				printf("\tEstado Mensual Apartamento: %s\n", ref);
 				printf("\t\tEdificio: %s\n", buildings[id].name);
-				calendar.init_data(month, year);
+				calendar.data.days_num = month_days(month, year);
 				calendar.print_calendar(buildings, id, ref, month, year);
 				stage++;
 				break;
@@ -206,8 +207,9 @@ void	monthly_reservations(TypeBuilding buildings)
 				scanf(" %c", &action);
 				if (action == 'S')
 				{
-					monthly_reservations(buildings);
-					return;
+					stage = 0;
+					system("clear");
+					continue;
 				}
 				else if (action == 'N')
 				{
